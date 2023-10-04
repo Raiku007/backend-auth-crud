@@ -34,7 +34,7 @@
 - bcryptJS
 - express validator
 - Lodash
-- 
+- jsonwebtoken
 ## Testing
 
 Tested in Postman App and database will show in MongoDB-Compass
