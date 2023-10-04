@@ -1,76 +1,69 @@
-// userSchema - username, email, password
+const User = require('../models/user-model');
 
-const usersnameSchema = {
-    notEmpty: {
-        errorMessage: 'username is required'
-    },
-    isLength: {
-        options: { min: 3 },
-        errorMessage: 'username should be minimum 3 characters'
-    }
-}
+const loginEmailSchema = {
+  notEmpty: {
+    errorMessage: 'Email is required',
+  },
+  isEmail: {
+    errorMessage: 'Email format is invalid',
+  },
+};
 
-const emailSchema = {
-    notEmpty: {
-        errorMessage: 'email is required'
+const registerEmailSchema = {
+  notEmpty: {
+    errorMessage: 'Email is required',
+  },
+  isEmail: {
+    errorMessage: 'Email format is invalid',
+  },
+  custom: {
+    options: async (value) => {
+      const user = await User.findOne({ email: value });
+      if (!user) {
+        return true;
+      } else {
+        throw new Error('User record exists');
+      }
     },
-    isEmail: {
-        errorMessage: 'email format is invalid'
-    }
-}
+  },
+};
 
 const passwordSchema = {
-    notEmpty: {
-        errorMessage: 'password is required'
-    },
-    isLength: {
-        options: { min: 8, max: 128 },
-        errorMessage: 'password should be between 8 - 128 characters long'
-    }
-}
+  notEmpty: {
+    errorMessage: 'Password is required',
+  },
+  isLength: {
+    options: { min: 8, max: 128 },
+    errorMessage: 'Password should be between 8 - 128 characters long',
+  },
+  matches: {
+    options: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*])/,
+    errorMessage: 'Password must contain at least one lowercase letter, one uppercase letter, and one special symbol',
+  },
+};
+
+const usernameSchema = {
+  notEmpty: {
+    errorMessage: 'Username is required',
+  },
+  isLength: {
+    options: { min: 3 },
+    errorMessage: 'Username should be minimum 3 characters',
+  },
+};
 
 const userRegistrationSchema = {
-    username: usersnameSchema,
-    email: emailSchema,
-    password: passwordSchema
-}
+  username: usernameSchema,
+  email: registerEmailSchema,
+  password: passwordSchema,
+};
 
 const userLoginSchema = {
-    email: emailSchema,
-    password: passwordSchema
-}
+  email: loginEmailSchema,
+  password: passwordSchema,
+};
 
-// const userRegistrationSchema = {
-//     username: {
-//         isLength: {
-//             options: { min: 3 },
-//             errorMessage: 'username should be minimum 3 characters'
-//         }
-//     },
-//     email: {
-//         isEmail: {
-//             errorMessage: 'email format is invalid'
-//         }
-//     },
-//     password: {
-//         isLength: {
-//             options: { min: 8, max: 128 },
-//             errorMessage: 'password should be between 8 - 128 characters long'
-//         }
-//     }
-// }
-
-// const userLoginSchema = {
-//     email: {
-//         isEmail: {
-//             errorMessage: 'email format is invalid'
-//         }
-//     },
-//     password: {
-//         isLength: {
-//             options: { min: 8, max: 128 },
-//             errorMessage: 'password should be between 8 - 128 characters long'
-//         }
-//     }
-// }
-module.exports = { userRegistrationSchema, userLoginSchema }
+module.exports = {
+  userRegistrationSchema,
+  userLoginSchema,
+};
