@@ -37,4 +37,4 @@
 - 
 ## Testing
 
-Tested in Postman App and database will show in MongoDb-Compass
+Tested in Postman App and database will show in MongoDB-Compass
