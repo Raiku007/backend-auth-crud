@@ -79,5 +79,4 @@ notesCtrl.destroy = async (req, res) => {
     }
 };
 
-
 module.exports = notesCtrl;
