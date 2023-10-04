@@ -26,18 +26,6 @@ usersCltr.register = async function(req, res) {
     }
 }
 
-// usersCltr.register = function(req, res) {
-//     const body = req.body
-//     const user = new User(body)
-//     user.save()
-//         .then((user) => {
-//             res.json(user)
-//         })
-//         .catch((err) => {
-//             res.json(err)
-//         })
-// }
-
 // login
 
 usersCltr.login = async (req, res) => {
@@ -80,26 +68,3 @@ usersCltr.account = async (req, res) => {
 }
 
 module.exports = usersCltr
-
-// usersCltr.register = function(req, res) {
-//     const body = req.body
-//     const user = new User(body)
-//     user.save()
-//         .then((user) => {
-//             res.json(user)
-//         })
-//         .catch((err) => {
-//             res.json(err)
-//         })
-// }
-
-// account
-
-
-// register
-
-// login
-
-// account
-
-// logout
